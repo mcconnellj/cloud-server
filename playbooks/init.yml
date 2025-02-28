@@ -1,0 +1,7 @@
+- name: Run Docker Compose
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Start services using Docker Compose
+      community.docker.docker_compose_v2:
+        project_src: ".."
