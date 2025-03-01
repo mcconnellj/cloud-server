@@ -9,9 +9,11 @@
         detached: true
       async: 300  # Timeout after 5 minutes
       poll: 0
+      register: compose_job  # ✅ Save the async job info
+
     - name: Wait for Docker Compose to finish
       async_status:
-        jid: "{{ ansible_job_id }}"
+        jid: "{{ compose_job.ansible_job_id }}"  # ✅ Reference the correct variable
       register: job_result
       until: job_result.finished
       retries: 30
