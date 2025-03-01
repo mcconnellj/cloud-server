@@ -1,4 +1,4 @@
-# Always Free Cloud Development Server with Secret and Finance Tracking
+# Free Cloud Development Server
 
 [![License](https://img.shields.io/badge/license-MIT-blue)](https://github.com/mcconnellj/cloud-server/blob/main/LICENSE) 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/mcconnellj/cloud-server/pulls) 
@@ -9,21 +9,20 @@
 
 ## 📌 Table of Contents  
 
-- [Always Free Cloud Development Server with Secret and Finance Tracking](#always-free-cloud-development-server-with-secret-and-finance-tracking)
+- [Free Cloud Development Server](#free-cloud-development-server)
   - [📌 Table of Contents](#-table-of-contents)
   - [🚀 What You Get](#-what-you-get)
     - [**Always Free Cloud Machine for App Deployment**](#always-free-cloud-machine-for-app-deployment)
     - [🛠️ Core Services (Running in Docker)](#️-core-services-running-in-docker)
     - [🖥️ Development Environment (VS Code with Host Access)](#️-development-environment-vs-code-with-host-access)
-- [🛠️ Installation](#️-installation)
-  - [Step 1: Create a Free-Tier e2 Micro Instance](#step-1-create-a-free-tier-e2-micro-instance)
-      - [✅ Create Your Instance:](#-create-your-instance)
-  - [Step 2: Configure DNS](#step-2-configure-dns)
-  - [Step 3: Install Dependencies](#step-3-install-dependencies)
-  - [Step 4: Clone the Repository](#step-4-clone-the-repository)
-  - [Step 5: Configure Environment Files](#step-5-configure-environment-files)
-  - [Step 6: Run Ansible Playbook](#step-6-run-ansible-playbook)
-  - [📝 Issues \& Contributions](#-issues--contributions)
+  - [🛠️ Installation](#️-installation)
+    - [Step 1: Create a Free-Tier e2 Micro Instance](#step-1-create-a-free-tier-e2-micro-instance)
+    - [Step 2: Configure DNS](#step-2-configure-dns)
+    - [Step 3: Install Dependencies](#step-3-install-dependencies)
+    - [Step 4: Clone the Repository](#step-4-clone-the-repository)
+    - [Step 5: Configure Environment Files](#step-5-configure-environment-files)
+    - [Step 6: Run Ansible Playbook](#step-6-run-ansible-playbook)
+    - [📝 Issues \& Contributions](#-issues--contributions)
   - [🙏 Acknowledgments](#-acknowledgments)
   - [🎉 Happy Hosting!](#-happy-hosting)
 
@@ -67,16 +66,14 @@ This repo sets up a **Google Cloud free-tier e2-micro instance** with an **exter
 
 ---
 
-# 🛠️ Installation  
+## 🛠️ Installation  
 
-## Step 1: Create a Free-Tier e2 Micro Instance  
+### Step 1: Create a Free-Tier e2 Micro Instance  
 
 Google Cloud provides **one free e2-micro instance per month** in specific US regions:  
 
 - **Regions:** Oregon (`us-west1`), Iowa (`us-central1`), South Carolina (`us-east1`)  
 - **Storage:** 30 GB standard persistent disk  
-
-#### ✅ Create Your Instance:  
 
 1. Go to **Google Cloud Console** → **Compute Engine** → **VM Instances**  
 2. Click **Create Instance**  
@@ -92,7 +89,7 @@ Once created, **use the web-based SSH** in Google Cloud Console to connect.
 
 ---
 
-## Step 2: Configure DNS  
+### Step 2: Configure DNS  
 
 Set **A records** in your domain registrar to point to your server’s **public IP address**:  
 
@@ -108,7 +105,7 @@ Set **A records** in your domain registrar to point to your server’s **public 
 
 ---
 
-## Step 3: Install Dependencies  
+### Step 3: Install Dependencies  
 
 Run the following commands on your server:  
 
@@ -123,7 +120,7 @@ source ~/.bashrc
 
 ---
 
-## Step 4: Clone the Repository  
+### Step 4: Clone the Repository  
 
 \`\`\`bash
 git clone https://github.com/mcconnellj/cloud-server  
@@ -132,7 +129,7 @@ cd cloud-server
 
 ---
 
-## Step 5: Configure Environment Files  
+### Step 5: Configure Environment Files  
 
 \`\`\`bash
 cat <<EOF > .env-template
@@ -157,7 +154,7 @@ mv .db.env-template .db.env
 
 ---
 
-## Step 6: Run Ansible Playbook  
+### Step 6: Run Ansible Playbook  
 
 \`\`\`bash
 ansible-playbook ./playbooks/site.yml --connection=local  
@@ -165,7 +162,7 @@ ansible-playbook ./playbooks/site.yml --connection=local
 
 ---
 
-## 📝 Issues & Contributions  
+### 📝 Issues & Contributions  
 
 Contributions are welcome!  
 
