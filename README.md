@@ -36,24 +36,43 @@ openssl passwd -apr1
 ```
 
 ### Step 6: Create a .env File
-
 Create a `.env` file in the root of the repository with the following content:
 
 ```bash
-touch .env
 nano .env
 ```
 
-Add the following content to the `.env` file. To save and exit `nano`, use the following key shortcuts:
-- Save: `Ctrl + O`
-- Exit: `Ctrl + X`
-
 ```env
-DOMAIN=yourdomain.com
+# Main Domain
+DOMAIN=
+
+# Subdomains (without the main domain)
 VAULTWARDEN_SUBDOMAIN=vaultwarden
-FIREFLY_SUBDOMAIN=firefly
 TRAEFIK_SUBDOMAIN=traefik
-TRAEFIK_PASSWORD_HASH=your_hashed_password
+ARGOCD_SUBDOMAIN=argocd
+CODE_SERVER_SUBDOMAIN=code
+
+# Traefik Dashboard Credentials
+TRAEFIK_USER=admin
+TRAEFIK_PASSWORD=""
+TRAEFIK_PASSWORD_HASH=""
+
+# Vaultwarden Credentials
+VAULTWARDEN_USER=admin
+VAULTWARDEN_PASSWORD=""
+VAULTWARDEN_PASSWORD_HASH=""
+
+# ArgoCD Credentials
+ARGOCD_USER=admin
+ARGOCD_PASSWORD=""
+ARGOCD_PASSWORD_HASH=""
+
+# Code Server
+CODE_SERVER_PASSWORD=  
+CODE_SERVER_SUDO_PASSWORD=  
+
+# Email for Let's Encrypt SSL
+EMAIL=
 ```
 
 ### Step 7: Run the Ansible Playbook
