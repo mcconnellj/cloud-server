@@ -1,28 +1,102 @@
-# 🌩️ Cloud Server  
-This repository automates the setup of a cloud server using Ansible.  
+# Cloud Server  
 
-## 📖 Overview  
-This guide will walk you through setting up a cloud server, configuring DNS, installing dependencies, and deploying services using Ansible.  
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](#)  
+[![License](https://img.shields.io/badge/license-MIT-blue)](#)  
+[![Version](https://img.shields.io/badge/version-1.0.0-orange)](#)  
+[![Contributors](https://img.shields.io/badge/contributors-welcome-yellow)](#)  
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#)  
 
-### 🛠️ Requirements  
+---
+
+## Self-Hosted Cloud Server on Google Cloud  
+
+### Please Contribute
+
+We welcome **all contributions**—whether it's **bug fixes, new features, or documentation improvements**.  
+
+- **Issues**: Found a bug? [Open an issue](https://github.com/mcconnellj/cloud-server/issues).  
+- **Pull Requests**: Fixes or enhancements? Submit a **PR**—we’ll review and merge!  
+- **Feature Requests**: Have an idea? Start a discussion in [GitHub Discussions](#).  
+
+Contributors are not expected to be civil, though it's a strong preference.
+
+### Technology 
+
+### What You Get
+
+#### **Always Free Cloud Machine For App Deployment**
+
+This repo aims to run a google cloud **free-tier e2-micro** instance with an **external IP** for secure app hosting and remote development. The apps allow you to manage: secrets, passwords, cards, financial data.
+
+The server is **managed using Docker Compose** however you will not run docker commands because the server deployment is automaticaly **installed using Ansible**. VS Code Server runs on the host allowing it to run commands, while the reamining apps run inside docker containers.
+
+
+## What You Get  
+
+### Core Services (Running in Docker)  
+- **`traefik.yourdomain.com`** – Reverse proxy handling traffic routing & SSL certificates.  
+- **`firefly.yourdomain.com`** – Personal finance manager with bank data import support.  
+- **`vaultwarden.yourdomain.com`** – Secure password & secret manager with browser extensions.  
+
+### Development Environment (VS Code With Host Access)  
+- **`code.yourdomain.com`** – Web-based VS Code with Git support for cloud development.    
+
+## Common Use Cases  
+
+### Remote Development & Cloud-Based Coding  
+- Work from anywhere with a full-featured **VS Code Web IDE**.  
+- Develop, test, and deploy applications directly from the cloud.  
+- Push & pull from Git, ideal for **CI/CD pipelines** like **ArgoCD** or **GitHub Actions**.  
+
+### Secure & Centralized Credential Management  
+- Store and manage **passwords, API keys, and secrets** using **Vaultwarden**.  
+- Access sensitive information securely from any device with browser extensions.  
+
+### Personal & Business Finance Management  
+- Track **expenses, budgets, and transactions** with **Firefly III**.  
+- Import **bank data** to automate financial tracking and reporting.  
+
+### Self-Hosted, Always Available Services  
+- Run essential apps on an always-free cloud instance.  
+- Automate SSL, domain routing, and security using **Traefik**.  
+- Access your services from anywhere with a custom **`*.yourdomain.com`** setup.  
+
+## Screenshots / Demo  
+
+The following applications will be deployed:  
+
+- **[Traefik](https://doc.traefik.io/traefik/)** (Reverse Proxy & Dashboard)  
+- **[Visual Studio Code Web](https://vscode.dev/)** (Browser-based cloud IDE)  
+- **[Firefly III](https://firefly-iii.org/)** (Personal Finance Manager)  
+- **[Vaultwarden](https://github.com/dani-garcia/vaultwarden)** (Bitwarden-compatible password manager)  
+
+Each service is accessible via **your custom subdomains**, secured with **Let's Encrypt SSL**.  
+
+---
+
+# 1. Project Overview
+
+### Requirements  
 - A **Google Cloud account** with Compute Engine enabled  
 - A **registered domain name**  
 - Basic knowledge of **command-line usage**  
 
-### ✅ Notes  
-- **Edit `.env` and `.db.env`** before running Ansible.  
+### Notes  
+- **Edit `.env` and `.db.env`** before deployment.  
 - **Hash passwords** where necessary before adding them.  
 - After deployment, **test your subdomains** to ensure everything is working.  
 
 ---
 
-# 🚀 Quick Start  
+# 2. Installation & Usage  
 
-## 🖥️ Step 1: Create a Free-Tier e2 Micro Instance  
+## Step 1: Create a Free-Tier e2 Micro Instance  
 
-Google Cloud provides **one free e2-micro instance per month** in specific US regions: **Oregon (`us-west1`), Iowa (`us-central1`), or South Carolina (`us-east1`)**. The free tier also includes **30 GB of standard persistent disk storage**.  
+Google Cloud provides **one free e2-micro instance per month** in specific US regions:  
+- **Regions:** Oregon (`us-west1`), Iowa (`us-central1`), South Carolina (`us-east1`)  
+- **Storage:** 30 GB standard persistent disk  
 
-#### **Create Your Instance:**  
+#### Create Your Instance:  
 1. Go to **Google Cloud Console** → **Compute Engine** → **VM Instances**  
 2. Click **Create Instance**  
 3. Set the **Machine type** to **e2-micro**  
@@ -35,7 +109,7 @@ Once created, **use the web-based SSH** in the Google Cloud Console to connect t
 
 ---
 
-## 🌍 Step 2: Configure DNS  
+## Step 2: Configure DNS  
 
 Set **A records** in your domain registrar to point to your server’s **public IP address**:  
 
@@ -47,11 +121,11 @@ Set **A records** in your domain registrar to point to your server’s **public 
 | `traefik`        | A    | 300  | `xxx.xxx.xxx.xxx`        |
 | `vaultwarden`    | A    | 300  | `xxx.xxx.xxx.xxx`        |
 
-🚨 **Note:** Replace `xxx.xxx.xxx.xxx` with your actual **public IP address**.  
+**Note:** Replace `xxx.xxx.xxx.xxx` with your actual **public IP address**.  
 
 ---
 
-## 📦 Step 3: Install Dependencies  
+## Step 3: Install Dependencies  
 
 Run the following commands on your server to install required tools:  
 
@@ -66,7 +140,7 @@ source ~/.bashrc
 
 ---
 
-## 🔗 Step 4: Clone the Repository  
+## Step 4: Clone the Repository  
 
 ```bash
 git clone https://github.com/mcconnellj/cloud-server  
@@ -75,13 +149,13 @@ cd cloud-server
 
 ---
 
-## 🛠️ Step 5: Configure Environment Files  
+## Step 5: Configure Environment Files  
 
 Create and edit **`.env` and `.db.env`** before running Ansible:  
 
 ```bash
 cat <<EOF > .env-template
-DOMAIN=example.com
+DOMAIN=
 CODE_SUBDOMAIN=code
 FIREFLY_SUBDOMAIN=firefly
 TRAEFIK_SUBDOMAIN=traefik
@@ -109,7 +183,7 @@ mv .db.env-template .db.env
 
 ---
 
-## 🚀 Step 6: Run Ansible Playbook  
+## Step 6: Run Ansible Playbook  
 
 Execute the playbook to configure your cloud server:  
 
@@ -118,3 +192,14 @@ ansible-playbook ./playbooks/site.yml --connection=local
 ```
 
 ---
+
+## Acknowledgments  
+
+Special thanks to:  
+- **S Zarichney** for making this possible
+- **Bear** for making this possible  
+- **Google Cloud Free Tier** for hosting
+
+---
+
+## Happy Hosting!  
