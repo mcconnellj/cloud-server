@@ -1,53 +1,58 @@
 # Cloud Server  
 
-[![License](https://img.shields.io/badge/license-MIT-blue)](https://github.com/mcconnellj/cloud-server/blob/main/LICENSE)  
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/mcconnellj/cloud-server/pulls)  
-[![Issues](https://img.shields.io/github/issues/mcconnellj/cloud-server)](https://github.com/mcconnellj/cloud-server/issues)  
+[![License](https://img.shields.io/badge/license-MIT-blue)](https://github.com/mcconnellj/cloud-server/blob/main/LICENSE) 
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/mcconnellj/cloud-server/pulls) 
+[![Issues](https://img.shields.io/github/issues/mcconnellj/cloud-server)](https://github.com/mcconnellj/cloud-server/issues) 
 [![Security Policy](https://img.shields.io/badge/security-policy-red)](https://github.com/mcconnellj/cloud-server/security/policy)  
 
 ---
 
-## 🚀 Tech Stack  
+## Please Contribute
 
-[![Google Cloud](https://img.shields.io/badge/Google_Cloud-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white)](https://cloud.google.com/compute/docs/instances/creating-instance-with-custom-machine-type)  
-[![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)](https://docs.docker.com/engine/install/ubuntu/)  
-[![Ansible](https://img.shields.io/badge/Ansible-000000?style=for-the-badge&logo=ansible&logoColor=white)](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#pipx-install)  
+I welcome **all contributions**—whether it's **bug fixes, new features, or documentation improvements**.  
 
-
----
-
-## Self-Hosted Cloud Server on Google Cloud  
-
-### Please Contribute
-
-We welcome **all contributions**—whether it's **bug fixes, new features, or documentation improvements**.  
-
+- **Roadmap**: security review, argocd server, improved networking
 - **Issues**: Found a bug? [Open an issue](https://github.com/mcconnellj/cloud-server/issues).  
 - **Pull Requests**: Fixes or enhancements? Submit a **PR**—we’ll review and merge!  
-- **Feature Requests**: Have an idea? Start a discussion in [GitHub Discussions](#).
-- **Security & Networking**: This repo needs improvements in this space.
+- **Feature Requests**: Have an idea? Start a discussion.
 
-### Technology 
+Each service is accessible via **your custom subdomains**, secured with **Let's Encrypt SSL**.
 
-### What You Get
+## What You Get
 
 #### **Always Free Cloud Machine For App Deployment**
 
 This repo aims to run a google cloud **free-tier e2-micro** instance with an **external IP** for secure app hosting and remote development. The apps allow you to manage: secrets, passwords, cards, financial data.
 
-The server is **managed using Docker Compose** however you will not run docker commands because the server deployment is automaticaly **installed using Ansible**. VS Code Server runs on the host allowing it to run commands, while the reamining apps run inside docker containers.
+The server is **managed using Docker Compose**.
 
-## What You Get  
+[![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)](https://docs.docker.com/compose/gettingstarted/)
+
+However you will not run docker commands because the server deployment is automaticaly **installed using Ansible**. VS Code Server runs on the host allowing it to run commands, while the reamining apps run inside docker containers.
+
+[![Ansible](https://img.shields.io/badge/Ansible-000000?style=for-the-badge&logo=ansible&logoColor=white)](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html)  
 
 ### Core Services (Running in Docker)  
-- **`traefik.yourdomain.com`** – Reverse proxy handling traffic routing & SSL certificates.  
-- **`firefly.yourdomain.com`** – Personal finance manager with bank data import support.  
-- **`vaultwarden.yourdomain.com`** – Secure password & secret manager with browser extensions.  
+- **`traefik.yourdomain.com`** 
+  - Reverse proxy handling traffic routing & SSL certificates.
+  - [Dashboard](https://doc.traefik.io/traefik/operations/dashboard/)
+  - [Quickstart via docker](https://doc.traefik.io/traefik/getting-started/quick-start/)
+- **`firefly.yourdomain.com`**
+  - Personal finance manager with bank data import support.
+  - [Demo](https://demo.firefly-iii.org/login)
+  - [Homepage](https://www.firefly-iii.org)
+  - [On github](https://github.com/firefly-iii/firefly-iii)
+  - [Bank imports](https://docs.firefly-iii.org/references/data-importer/third-party-tools/)
+- **`vaultwarden.yourdomain.com`**
+  - Secure password & secret manager with browser extensions.
+  - [Homepage](https://www.vaultwarden.ca)
+  - [On github](https://github.com/dani-garcia/vaultwarden)
 
 ### Development Environment (VS Code With Host Access)  
-- **`code.yourdomain.com`** – Web-based VS Code with Git support for cloud development.    
-
-## Common Use Cases  
+- **`code.yourdomain.com`**
+- Web-based VS Code with Git support for cloud development.
+- [Code Server & Remote Extension](https://code.visualstudio.com/docs/remote/vscode-server)
+- [On github](https://github.com/coder/code-server)
 
 ### Remote Development & Cloud-Based Coding  
 - Work from anywhere with a full-featured **VS Code Web IDE**.  
@@ -65,32 +70,7 @@ The server is **managed using Docker Compose** however you will not run docker c
 ### Self-Hosted, Always Available Services  
 - Run essential apps on an always-free cloud instance.  
 - Automate SSL, domain routing, and security using **Traefik**.  
-- Access your services from anywhere with a custom **`*.yourdomain.com`** setup.  
-
-## Screenshots / Demo  
-
-The following applications will be deployed:  
-
-- **[Traefik](https://doc.traefik.io/traefik/)** (Reverse Proxy & Dashboard)  
-- **[Visual Studio Code Web](https://vscode.dev/)** (Browser-based cloud IDE)  
-- **[Firefly III](https://firefly-iii.org/)** (Personal Finance Manager)  
-- **[Vaultwarden](https://github.com/dani-garcia/vaultwarden)** (Bitwarden-compatible password manager)  
-
-Each service is accessible via **your custom subdomains**, secured with **Let's Encrypt SSL**.  
-
----
-
-# 1. Project Overview
-
-### Requirements  
-- A **Google Cloud account** with Compute Engine enabled  
-- A **registered domain name**  
-- Basic knowledge of **command-line usage**  
-
-### Notes  
-- **Edit `.env` and `.db.env`** before deployment.  
-- **Hash passwords** where necessary before adding them.  
-- After deployment, **test your subdomains** to ensure everything is working.  
+- Access your services from anywhere with a custom **`*.yourdomain.com`** setup.    
 
 ---
 
@@ -111,7 +91,9 @@ Google Cloud provides **one free e2-micro instance per month** in specific US re
 6. Enable **Allow HTTP & HTTPS traffic**  
 7. Click **Create**  
 
-Once created, **use the web-based SSH** in the Google Cloud Console to connect to your instance.  
+Once created, **use the web-based SSH** in the Google Cloud Console to connect to your instance.
+
+[![Google Cloud](https://img.shields.io/badge/Google_Cloud-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white)](https://cloud.google.com/compute/docs/instances/creating-instance-with-custom-machine-type) 
 
 ---
 
@@ -143,6 +125,8 @@ sudo ansible-galaxy collection install community.docker
 sudo pipx ensurepath  
 source ~/.bashrc  
 ```
+
+[![Ansible](https://img.shields.io/badge/Ansible-000000?style=for-the-badge&logo=ansible&logoColor=white)](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#pipx-install)  
 
 ---
 
@@ -202,9 +186,9 @@ ansible-playbook ./playbooks/site.yml --connection=local
 ## Acknowledgments  
 
 Special thanks to:  
-- **S Zarichney** for making this possible
-- **Bear** for making this possible  
-- **Google Cloud Free Tier** for hosting
+- **S Zarichney** for telling me about codepilot
+- **Bear** for providing a switch for my local server  
+- **Google Cloud Free Tier** for free hosting
 
 ---
 
