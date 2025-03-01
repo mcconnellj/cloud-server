@@ -1,104 +1,120 @@
-# Cloud Server
-This repository automates the setup of a cloud server using Ansible.
+# 🌩️ Cloud Server  
+This repository automates the setup of a cloud server using Ansible.  
 
-## How to Use
-- Setup an e2 micro running in google compute engine.
-- SSH onto that machine.
+## 📖 Overview  
+This guide will walk you through setting up a cloud server, configuring DNS, installing dependencies, and deploying services using Ansible.  
 
-### Step 1: Setup an e2 Micro Instance
+### 🛠️ Requirements  
+- A **Google Cloud account** with Compute Engine enabled  
+- A **registered domain name**  
+- Basic knowledge of **command-line usage**  
 
-Create an e2 micro instance in Google Compute Engine and ensure it is running.
+### ✅ Notes  
+- **Edit `.env` and `.db.env`** before running Ansible.  
+- **Hash passwords** where necessary before adding them.  
+- After deployment, **test your subdomains** to ensure everything is working.  
 
-### Step 2: Reroute Your Domain
+---
 
-Reroute your domain using A records to point to the IP address of your e2 micro instance. Create the following subdomains:
-- `traefik.yourdomain.com`
-- `vaultwarden.yourdomain.com`
-- `firefly.yourdomain.com`
+# 🚀 Quick Start  
 
-### Step 3: Installs
-```bash
-sudo apt-get update
-sudo apt install -y git pipx ca-certificates curl
-sudo install -m 0755 -d /etc/apt/keyrings
-sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
-sudo chmod a+r /etc/apt/keyrings/docker.asc
+## 🖥️ Step 1: Create a Free-Tier e2 Micro Instance  
 
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
-  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+Google Cloud provides **one free e2-micro instance per month** in specific US regions: **Oregon (`us-west1`), Iowa (`us-central1`), or South Carolina (`us-east1`)**. The free tier also includes **30 GB of standard persistent disk storage**.  
 
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+#### **Create Your Instance:**  
+1. Go to **Google Cloud Console** → **Compute Engine** → **VM Instances**  
+2. Click **Create Instance**  
+3. Set the **Machine type** to **e2-micro**  
+4. Choose a **free-tier region** (`us-west1`, `us-central1`, or `us-east1`)  
+5. Select **Ubuntu/Debian** as the operating system  
+6. Enable **Allow HTTP & HTTPS traffic**  
+7. Click **Create**  
 
-sudo usermod -aG docker $USER
-newgrp docker
+Once created, **use the web-based SSH** in the Google Cloud Console to connect to your instance.  
 
+---
 
-sudo pipx install --include-deps ansible
-sudo ansible-galaxy collection install community.docker
-sudo apt-get update
-sudo pipx ensurepath
-source ~/.bashrc
-```
+## 🌍 Step 2: Configure DNS  
 
-### Step 4: Clone the Repository
-```bash
-git clone https://github.com/mcconnellj/cloud-server
-cd cloud-server
-```
+Set **A records** in your domain registrar to point to your server’s **public IP address**:  
 
-### Step 5: Generate a Hashed Password
+| Name (Subdomain) | Type | TTL  | Value (Your Server's IP) |
+|------------------|------|------|--------------------------|
+| `@` (root domain) | A    | 300  | `xxx.xxx.xxx.xxx`        |
+| `code`           | A    | 300  | `xxx.xxx.xxx.xxx`        |
+| `firefly`        | A    | 300  | `xxx.xxx.xxx.xxx`        |
+| `traefik`        | A    | 300  | `xxx.xxx.xxx.xxx`        |
+| `vaultwarden`    | A    | 300  | `xxx.xxx.xxx.xxx`        |
 
-The `TRAEFIK_PASSWORD_HASH` must be a hashed password. You can generate it using the following command:
+🚨 **Note:** Replace `xxx.xxx.xxx.xxx` with your actual **public IP address**.  
 
-```bash
-openssl passwd -apr1
-```
+---
 
-### Step 6: Create a .env File
-Create a `.env` file in the root of the repository with the following content:
+## 📦 Step 3: Install Dependencies  
+
+Run the following commands on your server to install required tools:  
 
 ```bash
-touch .db.env
-touch .env
-nano .env
+sudo apt-get update  
+sudo apt install -y git pipx ca-certificates curl  
+sudo pipx install --include-deps ansible  
+sudo ansible-galaxy collection install community.docker  
+sudo pipx ensurepath  
+source ~/.bashrc  
 ```
 
-```env
-# Main Domain
-DOMAIN=
+---
 
-# Subdomains (without the main domain)
-VAULTWARDEN_SUBDOMAIN=vaultwarden
+## 🔗 Step 4: Clone the Repository  
+
+```bash
+git clone https://github.com/mcconnellj/cloud-server  
+cd cloud-server  
+```
+
+---
+
+## 🛠️ Step 5: Configure Environment Files  
+
+Create and edit **`.env` and `.db.env`** before running Ansible:  
+
+```bash
+cat <<EOF > .env-template
+DOMAIN=example.com
+CODE_SUBDOMAIN=code
+FIREFLY_SUBDOMAIN=firefly
 TRAEFIK_SUBDOMAIN=traefik
-ARGOCD_SUBDOMAIN=argocd
-CODE_SERVER_SUBDOMAIN=code
-
-# Traefik Dashboard Credentials
+VAULTWARDEN_SUBDOMAIN=vaultwarden
 TRAEFIK_USER=admin
 TRAEFIK_PASSWORD=""
 TRAEFIK_PASSWORD_HASH=""
-
-# Vaultwarden Credentials
-VAULTWARDEN_USER=admin
-VAULTWARDEN_PASSWORD=""
-VAULTWARDEN_PASSWORD_HASH=""
-
-# ArgoCD Credentials
-ARGOCD_USER=admin
-ARGOCD_PASSWORD=""
-ARGOCD_PASSWORD_HASH=""
-
-# Code Server
-CODE_SERVER_PASSWORD=  
-CODE_SERVER_SUDO_PASSWORD=  
-
-# Email for Let's Encrypt SSL
 EMAIL=
+EOF
 ```
 
-### Step 7: Run the Ansible Playbook
 ```bash
-ansible-playbook ./playbooks/site.yml --connection=local
+cat <<EOF > .db.env-template
+DOMAIN=
+EMAIL=
+EOF
 ```
+
+Rename the files after adding your details:  
+
+```bash
+mv .env-template .env  
+mv .db.env-template .db.env  
+```
+
+---
+
+## 🚀 Step 6: Run Ansible Playbook  
+
+Execute the playbook to configure your cloud server:  
+
+```bash
+ansible-playbook ./playbooks/site.yml --connection=local  
+```
+
+---
