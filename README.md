@@ -34,10 +34,12 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 sudo usermod -aG docker $USER
 newgrp docker
 
-sudo pipx ensurepath
+
 sudo pipx install --include-deps ansible
 sudo ansible-galaxy collection install community.docker
 sudo apt-get update
+sudo pipx ensurepath
+source ~/.bashrc
 ```
 
 ### Step 4: Clone the Repository
@@ -58,6 +60,8 @@ openssl passwd -apr1
 Create a `.env` file in the root of the repository with the following content:
 
 ```bash
+touch .db.env
+touch .env
 nano .env
 ```
 
