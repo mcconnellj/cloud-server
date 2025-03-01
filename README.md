@@ -1,10 +1,10 @@
 # Cloud Server  
 
-[![License](https://img.shields.io/badge/license-MIT-blue)](#)  
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#)  
-[![Issues](https://img.shields.io/github/issues/mcconnellj/cloud-server)](https://github.com/mcconnellj/cloud-server/issues)  
-[![Discussions](https://img.shields.io/badge/discussions-join%20now-blue)](https://github.com/mcconnellj/cloud-server/discussions)  
-[![Security Policy](https://img.shields.io/badge/security-policy-red)](https://github.com/mcconnellj/cloud-server/security/policy)  
+![License](https://img.shields.io/badge/license-MIT-blue)  
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)  
+![Issues](https://img.shields.io/github/issues/mcconnellj/cloud-server)  
+![Discussions](https://img.shields.io/badge/discussions-join%20now-blue)  
+![Security Policy](https://img.shields.io/badge/security-policy-red)  
 
 ---
 
@@ -23,7 +23,7 @@
 
 ## 📊 GitHub Stats  
 
-![GitHub Stats](https://github-readme-stats-git-masterrstaa-rickstaa.vercel.app/api?username=mcconnellj&theme=tokyonight)  
+![GitHub Stats](https://github-readme-stats-git-masterrstaa-rickstaa.vercel.app/api?username=mcconnellj&theme=highcontrast)  
 
 ---
 
