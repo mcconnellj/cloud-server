@@ -5,3 +5,5 @@
     - name: Start services using Docker Compose
       community.docker.docker_compose_v2:
         project_src: ".."
+        state: present
+        detached: true
