@@ -7,93 +7,91 @@
 
 ---
 
-## Please Contribute
+## 📌 Table of Contents  
 
-I welcome **all contributions**—whether it's **bug fixes, new features, or documentation improvements**.  
-
-- **Roadmap**: security review, argocd server, improved networking
-- **Issues**: Found a bug? [Open an issue](https://github.com/mcconnellj/cloud-server/issues).  
-- **Pull Requests**: Fixes or enhancements? Submit a **PR**—we’ll review and merge!  
-- **Feature Requests**: Have an idea? Start a discussion.
-
-Each service is accessible via **your custom subdomains**, secured with **Let's Encrypt SSL**.
-
-## What You Get
-
-#### **Always Free Cloud Machine For App Deployment**
-
-This repo aims to run a google cloud **free-tier e2-micro** instance with an **external IP** for secure app hosting and remote development. The apps allow you to manage: secrets, passwords, cards, financial data.
-
-The server is **managed using Docker Compose**.
-
-[![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)](https://docs.docker.com/compose/gettingstarted/)
-
-However you will not run docker commands because the server deployment is automaticaly **installed using Ansible**. VS Code Server runs on the host allowing it to run commands, while the reamining apps run inside docker containers.
-
-[![Ansible](https://img.shields.io/badge/Ansible-000000?style=for-the-badge&logo=ansible&logoColor=white)](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html)  
-
-### Core Services (Running in Docker)  
-- **`traefik.yourdomain.com`** 
-  - Reverse proxy handling traffic routing & SSL certificates.
-  - [Dashboard](https://doc.traefik.io/traefik/operations/dashboard/)
-  - [Quickstart via docker](https://doc.traefik.io/traefik/getting-started/quick-start/)
-- **`firefly.yourdomain.com`**
-  - Personal finance manager with bank data import support.
-  - [Demo](https://demo.firefly-iii.org/login)
-  - [Homepage](https://www.firefly-iii.org)
-  - [On github](https://github.com/firefly-iii/firefly-iii)
-  - [Bank imports](https://docs.firefly-iii.org/references/data-importer/third-party-tools/)
-- **`vaultwarden.yourdomain.com`**
-  - Secure password & secret manager with browser extensions.
-  - [Homepage](https://www.vaultwarden.ca)
-  - [On github](https://github.com/dani-garcia/vaultwarden)
-
-### Development Environment (VS Code With Host Access)  
-- **`code.yourdomain.com`**
-- Web-based VS Code with Git support for cloud development.
-- [Code Server & Remote Extension](https://code.visualstudio.com/docs/remote/vscode-server)
-- [On github](https://github.com/coder/code-server)
-
-### Remote Development & Cloud-Based Coding  
-- Work from anywhere with a full-featured **VS Code Web IDE**.  
-- Develop, test, and deploy applications directly from the cloud.  
-- Push & pull from Git, ideal for **CI/CD pipelines** like **ArgoCD** or **GitHub Actions**.  
-
-### Secure & Centralized Credential Management  
-- Store and manage **passwords, API keys, and secrets** using **Vaultwarden**.  
-- Access sensitive information securely from any device with browser extensions.  
-
-### Personal & Business Finance Management  
-- Track **expenses, budgets, and transactions** with **Firefly III**.  
-- Import **bank data** to automate financial tracking and reporting.  
-
-### Self-Hosted, Always Available Services  
-- Run essential apps on an always-free cloud instance.  
-- Automate SSL, domain routing, and security using **Traefik**.  
-- Access your services from anywhere with a custom **`*.yourdomain.com`** setup.    
+- [Cloud Server](#cloud-server)
+  - [📌 Table of Contents](#-table-of-contents)
+  - [🚀 What You Get](#-what-you-get)
+    - [**Always Free Cloud Machine for App Deployment**](#always-free-cloud-machine-for-app-deployment)
+    - [🛠️ Core Services (Running in Docker)](#️-core-services-running-in-docker)
+    - [🖥️ Development Environment (VS Code with Host Access)](#️-development-environment-vs-code-with-host-access)
+- [🛠️ Installation](#️-installation)
+  - [Step 1: Create a Free-Tier e2 Micro Instance](#step-1-create-a-free-tier-e2-micro-instance)
+      - [✅ Create Your Instance:](#-create-your-instance)
+  - [Step 2: Configure DNS](#step-2-configure-dns)
+  - [Step 3: Install Dependencies](#step-3-install-dependencies)
+  - [Step 4: Clone the Repository](#step-4-clone-the-repository)
+  - [Step 5: Configure Environment Files](#step-5-configure-environment-files)
+  - [Step 6: Run Ansible Playbook](#step-6-run-ansible-playbook)
+  - [📝 Issues \& Contributions](#-issues--contributions)
+  - [🙏 Acknowledgments](#-acknowledgments)
+  - [🎉 Happy Hosting!](#-happy-hosting)
 
 ---
 
-# 2. Installation & Usage  
+## 🚀 What You Get  
+
+### **Always Free Cloud Machine for App Deployment**  
+
+This repo sets up a **Google Cloud free-tier e2-micro instance** with an **external IP** for secure app hosting and remote development.  
+
+- The server is **managed using Docker Compose**.  
+- Deployment is **automatically installed using Ansible**.  
+- **VS Code Server** runs on the host, while other apps run in Docker containers.  
+
+[![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)](https://docs.docker.com/compose/gettingstarted/)  
+[![Ansible](https://img.shields.io/badge/Ansible-000000?style=for-the-badge&logo=ansible&logoColor=white)](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html)  
+
+---
+
+### 🛠️ Core Services (Running in Docker)  
+
+- **`traefik.yourdomain.com`** – Reverse proxy handling traffic routing & SSL certificates.  
+  - [Dashboard](https://doc.traefik.io/traefik/operations/dashboard/)  
+  - [Quickstart via Docker](https://doc.traefik.io/traefik/getting-started/quick-start/)  
+
+- **`firefly.yourdomain.com`** – Personal finance manager with bank data import support.  
+  - [Demo](https://demo.firefly-iii.org/login)  
+  - [Homepage](https://www.firefly-iii.org)  
+  - [GitHub](https://github.com/firefly-iii/firefly-iii)  
+  - [Bank imports](https://docs.firefly-iii.org/references/data-importer/third-party-tools/)  
+
+- **`vaultwarden.yourdomain.com`** – Secure password & secret manager with browser extensions.  
+  - [Homepage](https://www.vaultwarden.ca)  
+  - [GitHub](https://github.com/dani-garcia/vaultwarden)  
+
+---
+
+### 🖥️ Development Environment (VS Code with Host Access)  
+
+- **`code.yourdomain.com`** – Web-based VS Code with Git support for cloud development.  
+  - [Code Server & Remote Extension](https://code.visualstudio.com/docs/remote/vscode-server)  
+  - [GitHub](https://github.com/coder/code-server)  
+
+---
+
+# 🛠️ Installation  
 
 ## Step 1: Create a Free-Tier e2 Micro Instance  
 
 Google Cloud provides **one free e2-micro instance per month** in specific US regions:  
+
 - **Regions:** Oregon (`us-west1`), Iowa (`us-central1`), South Carolina (`us-east1`)  
 - **Storage:** 30 GB standard persistent disk  
 
-#### Create Your Instance:  
+#### ✅ Create Your Instance:  
+
 1. Go to **Google Cloud Console** → **Compute Engine** → **VM Instances**  
 2. Click **Create Instance**  
-3. Set the **Machine type** to **e2-micro**  
+3. Set **Machine type** to **e2-micro**  
 4. Choose a **free-tier region** (`us-west1`, `us-central1`, or `us-east1`)  
-5. Select **Ubuntu/Debian** as the operating system  
+5. Select **Ubuntu/Debian** as the OS  
 6. Enable **Allow HTTP & HTTPS traffic**  
 7. Click **Create**  
 
-Once created, **use the web-based SSH** in the Google Cloud Console to connect to your instance.
+Once created, **use the web-based SSH** in Google Cloud Console to connect.  
 
-[![Google Cloud](https://img.shields.io/badge/Google_Cloud-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white)](https://cloud.google.com/compute/docs/instances/creating-instance-with-custom-machine-type) 
+[![Google Cloud](https://img.shields.io/badge/Google_Cloud-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white)](https://cloud.google.com/compute/docs/instances/creating-instance-with-custom-machine-type)  
 
 ---
 
@@ -115,35 +113,31 @@ Set **A records** in your domain registrar to point to your server’s **public 
 
 ## Step 3: Install Dependencies  
 
-Run the following commands on your server to install required tools:  
+Run the following commands on your server:  
 
-```bash
+\`\`\`bash
 sudo apt-get update  
 sudo apt install -y git pipx ca-certificates curl  
 sudo pipx install --include-deps ansible  
 sudo ansible-galaxy collection install community.docker  
 sudo pipx ensurepath  
 source ~/.bashrc  
-```
-
-[![Ansible](https://img.shields.io/badge/Ansible-000000?style=for-the-badge&logo=ansible&logoColor=white)](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#pipx-install)  
+\`\`\`  
 
 ---
 
 ## Step 4: Clone the Repository  
 
-```bash
+\`\`\`bash
 git clone https://github.com/mcconnellj/cloud-server  
 cd cloud-server  
-```
+\`\`\`  
 
 ---
 
 ## Step 5: Configure Environment Files  
 
-Create and edit **`.env` and `.db.env`** before running Ansible:  
-
-```bash
+\`\`\`bash
 cat <<EOF > .env-template
 DOMAIN=
 CODE_SUBDOMAIN=code
@@ -155,41 +149,42 @@ TRAEFIK_PASSWORD=""
 TRAEFIK_PASSWORD_HASH=""
 EMAIL=
 EOF
-```
+\`\`\`  
 
-```bash
-cat <<EOF > .db.env-template
-DOMAIN=
-EMAIL=
-EOF
-```
+Rename the files:  
 
-Rename the files after adding your details:  
-
-```bash
+\`\`\`bash
 mv .env-template .env  
 mv .db.env-template .db.env  
-```
+\`\`\`  
 
 ---
 
 ## Step 6: Run Ansible Playbook  
 
-Execute the playbook to configure your cloud server:  
-
-```bash
+\`\`\`bash
 ansible-playbook ./playbooks/site.yml --connection=local  
-```
+\`\`\`  
 
 ---
 
-## Acknowledgments  
+## 📝 Issues & Contributions  
+
+Contributions are welcome!  
+
+- **Found a bug?** [Open an issue](https://github.com/mcconnellj/cloud-server/issues)  
+- **Want to contribute?** Submit a **PR**  
+- **Feature requests?** Start a discussion  
+
+---
+
+## 🙏 Acknowledgments  
 
 Special thanks to:  
-- **S Zarichney** for telling me about codepilot
+- **S Zarichney** for introducing me to CodePilot  
 - **Bear** for providing a switch for my local server  
-- **Google Cloud Free Tier** for free hosting
+- **Google Cloud Free Tier** for free hosting  
 
 ---
 
-## Happy Hosting!  
+## 🎉 Happy Hosting!  
