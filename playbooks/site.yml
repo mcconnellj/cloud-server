@@ -7,3 +7,12 @@
         project_src: ".."
         state: present
         detached: true
+      async: 300  # Timeout after 5 minutes
+      poll: 0
+    - name: Wait for Docker Compose to finish
+      async_status:
+        jid: "{{ ansible_job_id }}"
+      register: job_result
+      until: job_result.finished
+      retries: 30
+      delay: 10
