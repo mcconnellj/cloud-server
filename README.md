@@ -1,10 +1,6 @@
 # Cloud Server  
 
-![License](https://img.shields.io/badge/license-MIT-blue)  
-![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)  
-![Issues](https://img.shields.io/github/issues/mcconnellj/cloud-server)  
-![Discussions](https://img.shields.io/badge/discussions-join%20now-blue)  
-![Security Policy](https://img.shields.io/badge/security-policy-red)  
+![License](https://img.shields.io/badge/license-MIT-blue) ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg) ![Issues](https://img.shields.io/github/issues/mcconnellj/cloud-server) ![Security Policy](https://img.shields.io/badge/security-policy-red)
 
 ---
 
