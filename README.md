@@ -1,14 +1,18 @@
 # Cloud Server  
 
-![License](https://img.shields.io/badge/license-MIT-blue) ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg) ![Issues](https://img.shields.io/github/issues/mcconnellj/cloud-server) ![Security Policy](https://img.shields.io/badge/security-policy-red)
+[![License](https://img.shields.io/badge/license-MIT-blue)](https://github.com/mcconnellj/cloud-server/blob/main/LICENSE)  
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/mcconnellj/cloud-server/pulls)  
+[![Issues](https://img.shields.io/github/issues/mcconnellj/cloud-server)](https://github.com/mcconnellj/cloud-server/issues)  
+[![Security Policy](https://img.shields.io/badge/security-policy-red)](https://github.com/mcconnellj/cloud-server/security/policy)  
 
 ---
 
 ## 🚀 Tech Stack  
 
-Deployed on ![Debian](https://img.shields.io/badge/Debian-A81D33?style=for-the-badge&logo=debian&logoColor=white) in the ![Google Cloud](https://img.shields.io/badge/Google_Cloud-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white)  
+[![Google Cloud](https://img.shields.io/badge/Google_Cloud-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white)](https://cloud.google.com/compute/docs/instances/creating-instance-with-custom-machine-type)  
+[![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)](https://docs.docker.com/engine/install/ubuntu/)  
+[![Ansible](https://img.shields.io/badge/Ansible-000000?style=for-the-badge&logo=ansible&logoColor=white)](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#pipx-install)  
 
-Managed using ![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white) installed using ![Ansible](https://img.shields.io/badge/Ansible-000000?style=for-the-badge&logo=ansible&logoColor=white)
 
 ---
 
@@ -32,7 +36,6 @@ We welcome **all contributions**—whether it's **bug fixes, new features, or do
 This repo aims to run a google cloud **free-tier e2-micro** instance with an **external IP** for secure app hosting and remote development. The apps allow you to manage: secrets, passwords, cards, financial data.
 
 The server is **managed using Docker Compose** however you will not run docker commands because the server deployment is automaticaly **installed using Ansible**. VS Code Server runs on the host allowing it to run commands, while the reamining apps run inside docker containers.
-
 
 ## What You Get  
 
