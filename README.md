@@ -1,10 +1,11 @@
 # Cloud Server  
 
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](#)  
 [![License](https://img.shields.io/badge/license-MIT-blue)](#)  
-[![Version](https://img.shields.io/badge/version-1.0.0-orange)](#)  
-[![Contributors](https://img.shields.io/badge/contributors-welcome-yellow)](#)  
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#)  
+[![Issues](https://img.shields.io/github/issues/mcconnellj/cloud-server)](https://github.com/mcconnellj/cloud-server/issues)  
+[![Discussions](https://img.shields.io/badge/discussions-join%20now-blue)](https://github.com/mcconnellj/cloud-server/discussions)  
+[![Security Policy](https://img.shields.io/badge/security-policy-red)](https://github.com/mcconnellj/cloud-server/security/policy)  
+
 
 ---
 
@@ -16,9 +17,8 @@ We welcome **all contributions**—whether it's **bug fixes, new features, or do
 
 - **Issues**: Found a bug? [Open an issue](https://github.com/mcconnellj/cloud-server/issues).  
 - **Pull Requests**: Fixes or enhancements? Submit a **PR**—we’ll review and merge!  
-- **Feature Requests**: Have an idea? Start a discussion in [GitHub Discussions](#).  
-
-Contributors are not expected to be civil, though it's a strong preference.
+- **Feature Requests**: Have an idea? Start a discussion in [GitHub Discussions](#).
+- **Security & Networking**: This repo needs improvements in this space.
 
 ### Technology 
 
