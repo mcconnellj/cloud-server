@@ -6,14 +6,18 @@
       community.docker.docker_compose_v2:
         project_src: ".."
         state: present
-        detached: true
+        wait: false  # ✅ Correct way to run in detached mode
       async: 300  # Timeout after 5 minutes
       poll: 0
-      register: compose_job  # ✅ Save the async job info
+      register: compose_job
+
+    - name: Debug async job ID  # Optional: Check if ansible_job_id exists
+      debug:
+        var: compose_job
 
     - name: Wait for Docker Compose to finish
       async_status:
-        jid: "{{ compose_job.ansible_job_id }}"  # ✅ Reference the correct variable
+        jid: "{{ compose_job.ansible_job_id }}"
       register: job_result
       until: job_result.finished
       retries: 30
