@@ -1,4 +1,4 @@
-# Cloud Server  
+# Always Free Cloud Development Server with Secret and Finance Tracking
 
 [![License](https://img.shields.io/badge/license-MIT-blue)](https://github.com/mcconnellj/cloud-server/blob/main/LICENSE) 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/mcconnellj/cloud-server/pulls) 
@@ -9,7 +9,7 @@
 
 ## 📌 Table of Contents  
 
-- [Cloud Server](#cloud-server)
+- [Always Free Cloud Development Server with Secret and Finance Tracking](#always-free-cloud-development-server-with-secret-and-finance-tracking)
   - [📌 Table of Contents](#-table-of-contents)
   - [🚀 What You Get](#-what-you-get)
     - [**Always Free Cloud Machine for App Deployment**](#always-free-cloud-machine-for-app-deployment)
