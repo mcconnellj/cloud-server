@@ -16,9 +16,28 @@ Reroute your domain using A records to point to the IP address of your e2 micro 
 - `vaultwarden.yourdomain.com`
 - `firefly.yourdomain.com`
 
-### Step 3: Install Git and Ansible
+### Step 3: Installs
 ```bash
-sudo apt install -y git ansible
+sudo apt-get update
+sudo apt install -y git pipx ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+sudo usermod -aG docker $USER
+newgrp docker
+
+sudo pipx ensurepath
+sudo pipx install --include-deps ansible
+sudo ansible-galaxy collection install community.docker
+sudo apt-get update
 ```
 
 ### Step 4: Clone the Repository
