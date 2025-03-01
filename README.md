@@ -85,8 +85,6 @@ Google Cloud provides one free e2-micro instance per month in specific US region
 
 Once created, use the web-based SSH in Google Cloud Console to connect.  
 
-[![Google Cloud](https://img.shields.io/badge/Google_Cloud-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white)](https://cloud.google.com/compute/docs/instances/creating-instance-with-custom-machine-type)  
-
 ---
 
 ### Step 2: Configure DNS  
