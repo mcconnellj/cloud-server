@@ -37,10 +37,7 @@ This repo sets up a **Google Cloud free-tier e2-micro instance** with an **exter
 
 - The server is **managed using Docker Compose**.  
 - Deployment is **automatically installed using Ansible**.  
-- **VS Code Server** runs on the host, while other apps run in Docker containers.  
-
-[![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)](https://docs.docker.com/compose/gettingstarted/)  
-[![Ansible](https://img.shields.io/badge/Ansible-000000?style=for-the-badge&logo=ansible&logoColor=white)](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html)  
+- **VS Code Server** runs on the host, while other apps run in Docker containers.
 
 ---
 
