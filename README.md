@@ -107,29 +107,29 @@ Note: Replace `xxx.xxx.xxx.xxx` with your actual public IP address.
 
 Run the following commands on your server:  
 
-\`\`\`bash  
+```bash  
 sudo apt-get update  
 sudo apt install -y git pipx ca-certificates curl  
 sudo pipx install --include-deps ansible  
 sudo ansible-galaxy collection install community.docker  
 sudo pipx ensurepath  
 source ~/.bashrc  
-\`\`\`  
+```  
 
 ---
 
 ### Step 4: Clone the Repository  
 
-\`\`\`bash  
+```bash  
 git clone https://github.com/mcconnellj/cloud-server  
 cd cloud-server  
-\`\`\`  
+```  
 
 ---
 
 ### Step 5: Configure Environment Files  
 
-\`\`\`bash  
+```bash  
 cat <<EOF > .env-template  
 DOMAIN=  
 CODE_SUBDOMAIN=code  
@@ -141,22 +141,22 @@ TRAEFIK_PASSWORD=""
 TRAEFIK_PASSWORD_HASH=""  
 EMAIL=  
 EOF  
-\`\`\`  
+```  
 
 Rename the files:  
 
-\`\`\`bash  
+```bash  
 mv .env-template .env  
 mv .db.env-template .db.env  
-\`\`\`  
+```  
 
 ---
 
 ### Step 6: Run Ansible Playbook  
 
-\`\`\`bash  
+```bash  
 ansible-playbook ./playbooks/site.yml --connection=local  
-\`\`\`  
+```  
 
 ---
 
