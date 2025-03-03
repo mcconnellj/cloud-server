@@ -88,19 +88,6 @@ services:
       - traefik-net
     restart: unless-stopped
 
-  # Code-server routing to an external service running on the host machine (port 8080)
-  code-server:
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.code-server.rule=Host(`code.${DOMAIN}`)"
-      - "traefik.http.routers.code-server.entrypoints=websecure"
-      - "traefik.http.routers.code-server.tls.certresolver=myresolver"
-      - "traefik.http.services.code-server.loadbalancer.server.url=http://host.docker.internal:8080"
-      - "traefik.http.routers.code-server.middlewares=auth"
-      - "traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_PASSWORD_HASH}"
-    networks:
-      - traefik-net
-
 volumes:
   vw-data:
   firefly_iii_upload:
