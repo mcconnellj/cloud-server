@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   vaultwarden:
     image: vaultwarden/server:latest
@@ -15,8 +13,9 @@ services:
       - "traefik.http.routers.vaultwarden.rule=Host(`${VAULTWARDEN_SUBDOMAIN}.${DOMAIN}`)"
       - "traefik.http.routers.vaultwarden.entrypoints=websecure"
       - "traefik.http.routers.vaultwarden.tls.certresolver=myresolver"
-      - "traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_PASSWORD_HASH}"
       - "traefik.http.routers.vaultwarden.middlewares=auth"
+      - "traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_PASSWORD_HASH}"
+      - "traefik.http.services.vaultwarden.loadbalancer.server.port=80"  # <-- Explicit port for service discovery
     networks:
       - traefik-net
       - internal-net
@@ -38,8 +37,9 @@ services:
       - "traefik.http.routers.firefly-iii.rule=Host(`${FIREFLY_SUBDOMAIN}.${DOMAIN}`)"
       - "traefik.http.routers.firefly-iii.entrypoints=websecure"
       - "traefik.http.routers.firefly-iii.tls.certresolver=myresolver"
-      - "traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_PASSWORD_HASH}"
       - "traefik.http.routers.firefly-iii.middlewares=auth"
+      - "traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_PASSWORD_HASH}"
+      - "traefik.http.services.firefly-iii.loadbalancer.server.port=8080"  # <-- Explicit port for service discovery
     depends_on:
       - mariadb
 
@@ -50,7 +50,7 @@ services:
     restart: always
     env_file: .db.env
     networks:
-      - internal-net
+      - internal-net  # <-- Only in internal network (NOT in traefik-net)
     volumes:
       - firefly_iii_db:/var/lib/mysql
 
@@ -65,11 +65,13 @@ services:
     command:
       - "--api.insecure=false"
       - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"  # <-- Ensures only labeled services are used
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
       - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
       - "--certificatesresolvers.myresolver.acme.email=${EMAIL}"
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+      - "--certificatesresolvers.myresolver.acme.caServer=https://acme-staging-v02.api.letsencrypt.org/directory"  # <-- Staging environment (remove later)
       - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
       - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
     labels:
@@ -77,8 +79,8 @@ services:
       - "traefik.http.routers.traefik.rule=Host(`${TRAEFIK_SUBDOMAIN}.${DOMAIN}`)"
       - "traefik.http.routers.traefik.entrypoints=websecure"
       - "traefik.http.routers.traefik.tls.certresolver=myresolver"
-      - "traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_PASSWORD_HASH}"
       - "traefik.http.routers.traefik.middlewares=auth"
+      - "traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_PASSWORD_HASH}"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - traefik-letsencrypt:/letsencrypt
@@ -86,18 +88,16 @@ services:
       - traefik-net
     restart: unless-stopped
 
-  # Traefik routing to code-server running on the host machine at port 8080
+  # Code-server routing to an external service running on the host machine (port 8080)
   code-server:
-    image: alpine
-    command: sleep infinity
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.code-server.rule=Host(`code.${DOMAIN}`)"
       - "traefik.http.routers.code-server.entrypoints=websecure"
       - "traefik.http.routers.code-server.tls.certresolver=myresolver"
       - "traefik.http.services.code-server.loadbalancer.server.url=http://host.docker.internal:8080"
-      - "traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_PASSWORD_HASH}"
       - "traefik.http.routers.code-server.middlewares=auth"
+      - "traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_PASSWORD_HASH}"
     networks:
       - traefik-net
 
