@@ -67,7 +67,7 @@ services:
     command:
       - "--api.insecure=false"
       - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"  # <-- Ensures only labeled services are used
+      - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
       - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
@@ -75,7 +75,7 @@ services:
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
       - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
       - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
-      - "--entrypoints.web.http.redirections.entryPoint.permanent=true"  # Ensure permanent redirection
+      - "--entrypoints.web.http.redirections.entryPoint.permanent=true"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.rule=Host(`${TRAEFIK_SUBDOMAIN}.${DOMAIN}`)"
