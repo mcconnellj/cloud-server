@@ -69,14 +69,17 @@ services:
       - "--entrypoints.websecure.address=:443"
 
       # ACME configuration for wildcard certificates
-      - "--certificatesresolvers.myresolver.acme.dnschallenge=true"  # Using DNS challenge
-      - "--certificatesresolvers.myresolver.acme.dnschallenge.provider=<YOUR_DNS_PROVIDER>"  # Replace with your DNS provider
-      - "--certificatesresolvers.myresolver.acme.email=${EMAIL}"  # Replace with your email
-      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
-      - "--certificatesresolvers.myresolver.acme.domains=*.${DOMAIN}"  # Wildcard domain
+      - "--certificatesresolvers.cloudflare.acme.dnschallenge=true"  # Using DNS challenge
+      - "--certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare"  # Replace with your DNS provider
+      - "--certificatesresolvers.cloudflare.acme.email=${EMAIL}"  # Replace with your email
+      - "--certificatesresolvers.cloudflare.acme.storage=/letsencrypt/acme.json"
+      - "--certificatesresolvers.cloudflare.acme.domains=*.${DOMAIN}"  # Wildcard domain
       - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
       - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
-      - "--entrypoints.web.http.redirections.entryPoint.permanent=true"
+      - "--entrypoints.websecure.http.tls=true"
+      - "--entrypoints.websecure.http.tls.certresolver=cloudflare"
+      - "--entrypoints.websecure.http.tls.domains[0].main=${DOMAIN}"
+      - "--entrypoints.websecure.http.tls.domains[0].sans=*.${DOMAIN}"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.rule=Host(`${TRAEFIK_SUBDOMAIN}.${DOMAIN}`)"
