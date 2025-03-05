@@ -139,7 +139,7 @@ VAULTWARDEN_SUBDOMAIN=vaultwarden
 TRAEFIK_USER=admin  
 TRAEFIK_PASSWORD=""  
 TRAEFIK_PASSWORD_HASH=""  
-EMAIL=  
+EMAIL=your_email@example.com  # <-- Ensure this is set for Let's Encrypt
 EOF  
 ```  
 
@@ -179,4 +179,4 @@ Special thanks to:
 
 ---
 
-## 🎉 Happy Hosting!  
+## 🎉 Happy Hosting!
