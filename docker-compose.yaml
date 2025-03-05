@@ -12,7 +12,6 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.vaultwarden.rule=Host(`${VAULTWARDEN_SUBDOMAIN}.${DOMAIN}`)"
       - "traefik.http.routers.vaultwarden.entrypoints=websecure"
-      - "traefik.http.routers.vaultwarden.tls.certresolver=myresolver"
       - "traefik.http.routers.vaultwarden.middlewares=auth"
       - "traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_PASSWORD_HASH}"
       - "traefik.http.services.vaultwarden.loadbalancer.server.port=80"  # <-- Explicit port for service discovery
@@ -36,7 +35,6 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.firefly-iii.rule=Host(`${FIREFLY_SUBDOMAIN}.${DOMAIN}`)"
       - "traefik.http.routers.firefly-iii.entrypoints=websecure"
-      - "traefik.http.routers.firefly-iii.tls.certresolver=myresolver"
       - "traefik.http.routers.firefly-iii.middlewares=auth"
       - "traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_PASSWORD_HASH}"
       - "traefik.http.services.firefly-iii.loadbalancer.server.port=8080"  # <-- Explicit port for service discovery
@@ -63,15 +61,19 @@ services:
       - "80:80"
       - "443:443"
     command:
+      # Basic Traefik configuration
       - "--api.insecure=false"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
-      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
-      - "--certificatesresolvers.myresolver.acme.email=${EMAIL}"
+
+      # ACME configuration for wildcard certificates
+      - "--certificatesresolvers.myresolver.acme.dnschallenge=true"  # Using DNS challenge
+      - "--certificatesresolvers.myresolver.acme.dnschallenge.provider=<YOUR_DNS_PROVIDER>"  # Replace with your DNS provider
+      - "--certificatesresolvers.myresolver.acme.email=${EMAIL}"  # Replace with your email
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
-      - "--certificatesresolvers.myresolver.acme.caServer=https://acme-staging-v02.api.letsencrypt.org/directory"  # <-- Add staging server
+      - "--certificatesresolvers.myresolver.acme.domains=*.${DOMAIN}"  # Wildcard domain
       - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
       - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
       - "--entrypoints.web.http.redirections.entryPoint.permanent=true"
@@ -79,7 +81,6 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.rule=Host(`${TRAEFIK_SUBDOMAIN}.${DOMAIN}`)"
       - "traefik.http.routers.traefik.entrypoints=websecure"
-      - "traefik.http.routers.traefik.tls.certresolver=myresolver"
       - "traefik.http.routers.traefik.middlewares=auth"
       - "traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_PASSWORD_HASH}"
     volumes:
