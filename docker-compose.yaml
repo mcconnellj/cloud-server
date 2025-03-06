@@ -57,6 +57,8 @@ services:
     container_name: traefik
     env_file:
       - .env
+    environment:
+      - CLOUDFLARE_API_TOKEN=${CLOUDFLARE_API_TOKEN}  # Ensure this is set
     ports:
       - "80:80"
       - "443:443"

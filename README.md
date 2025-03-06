@@ -140,6 +140,7 @@ TRAEFIK_USER=admin
 TRAEFIK_PASSWORD=""  
 TRAEFIK_PASSWORD_HASH=""  
 EMAIL=your_email@example.com  # <-- Ensure this is set for Let's Encrypt
+CLOUDFLARE_API_TOKEN=your_cloudflare_api_token  # <-- Add your Cloudflare API token
 EOF  
 ```  
 
@@ -167,6 +168,7 @@ Contributions are welcome!
 - Found a bug? [Open an issue](https://github.com/mcconnellj/cloud-server/issues)  
 - Want to contribute? Submit a PR  
 - Feature requests? Start a discussion  
+- [Security Policy](https://github.com/mcconnellj/cloud-server/security/policy)
 
 ---
 
