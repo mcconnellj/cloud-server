@@ -1,0 +1,10 @@
+certificatesResolvers:
+  cloudflare:
+    acme:
+      email: "${EMAIL}"
+      storage: "/etc/traefik/acme.json"  # Pointing to the acme.json file
+      dnsChallenge:
+        provider: cloudflare
+        resolvers:
+          - "1.1.1.1:53"
+          - "8.8.8.8:53"
