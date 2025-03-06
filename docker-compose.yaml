@@ -86,6 +86,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - traefik-letsencrypt:/letsencrypt
+      - ./acme.json:/etc/traefik/acme.json  # Mounting the acme.json file
     networks:
       - traefik-net
     restart: unless-stopped
