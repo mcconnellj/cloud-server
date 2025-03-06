@@ -73,13 +73,10 @@ services:
       - "--certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare"  # Replace with your DNS provider
       - "--certificatesresolvers.cloudflare.acme.email=${EMAIL}"  # Replace with your email
       - "--certificatesresolvers.cloudflare.acme.storage=/letsencrypt/acme.json"
-      - "--certificatesresolvers.cloudflare.acme.domains=*.${DOMAIN}"  # Wildcard domain
       - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
       - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
       - "--entrypoints.websecure.http.tls=true"
       - "--entrypoints.websecure.http.tls.certresolver=cloudflare"
-      - "--entrypoints.websecure.http.tls.domains[0].main=${DOMAIN}"
-      - "--entrypoints.websecure.http.tls.domains[0].sans=*.${DOMAIN}"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.rule=Host(`${TRAEFIK_SUBDOMAIN}.${DOMAIN}`)"
