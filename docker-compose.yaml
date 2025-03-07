@@ -11,6 +11,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.vaultwarden.rule=Host(`${VAULTWARDEN_SUBDOMAIN}.${DOMAIN}`)"
+      - "traefik.http.routers.vaultwarden.entrypoints=websecure"
       - "traefik.http.routers.vaultwarden.middlewares=auth"
       - "traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_PASSWORD_HASH}"
       - "traefik.http.services.vaultwarden.loadbalancer.server.port=80"  # <-- Explicit port for service discovery
@@ -33,6 +34,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.firefly-iii.rule=Host(`${FIREFLY_SUBDOMAIN}.${DOMAIN}`)"
+      - "traefik.http.routers.firefly-iii.entrypoints=websecure"
       - "traefik.http.routers.firefly-iii.middlewares=auth"
       - "traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_PASSWORD_HASH}"
       - "traefik.http.services.firefly-iii.loadbalancer.server.port=8080"  # <-- Explicit port for service discovery
@@ -75,10 +77,8 @@ services:
       - "--certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare"  # Replace with your DNS provider
       - "--certificatesresolvers.cloudflare.acme.email=${EMAIL}"  # Replace with your email
       - "--certificatesresolvers.cloudflare.acme.storage=/letsencrypt/acme.json"
-      
-      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
-      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
-    
+      #- "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      #- "--entrypoints.web.http.redirections.entryPoint.scheme=https"
       - "--entrypoints.websecure.http.tls=true"
       - "--entrypoints.websecure.http.tls.certresolver=cloudflare"
       - "--entrypoints.websecure.http.tls.domains[0].main=${DOMAIN}"
@@ -86,6 +86,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.rule=Host(`${TRAEFIK_SUBDOMAIN}.${DOMAIN}`)"
+      - "traefik.http.routers.traefik.entrypoints=websecure"
       - "traefik.http.routers.traefik.middlewares=auth"
       - "traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_PASSWORD_HASH}"
     volumes:
