@@ -131,7 +131,7 @@ cd cloud-server
 
 ```bash  
 cat <<EOF > .env-template  
-DOMAIN=promotesudbury.ca
+DOMAIN=
 CODE_SUBDOMAIN=code  
 FIREFLY_SUBDOMAIN=firefly  
 TRAEFIK_SUBDOMAIN=traefik  
