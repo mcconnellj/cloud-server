@@ -67,6 +67,8 @@ services:
     command:
       # Basic Traefik configuration
       - "--api.insecure=false"
+      - "--api.dashboard=true"
+      - "--api.debug=true"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
