@@ -81,6 +81,8 @@ services:
       - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
       - "--entrypoints.websecure.http.tls=true"
       - "--entrypoints.websecure.http.tls.certresolver=cloudflare"
+      - "--entrypoints.websecure.http.tls.domains[0].main=${DOMAIN}"
+      - "--entrypoints.websecure.http.tls.domains[0].sans=${CODE_SUBDOMAIN}.${DOMAIN},${FIREFLY_SUBDOMAIN}.${DOMAIN},${TRAEFIK_SUBDOMAIN}.${DOMAIN},${VAULTWARDEN_SUBDOMAIN}.${DOMAIN}"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.rule=Host(`${TRAEFIK_SUBDOMAIN}.${DOMAIN}`)"
