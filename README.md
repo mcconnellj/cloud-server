@@ -131,7 +131,7 @@ cd cloud-server
 
 ```bash  
 cat <<EOF > .env-template  
-DOMAIN=  
+DOMAIN=promotesudbury.ca
 CODE_SUBDOMAIN=code  
 FIREFLY_SUBDOMAIN=firefly  
 TRAEFIK_SUBDOMAIN=traefik  
@@ -141,6 +141,8 @@ TRAEFIK_PASSWORD=""
 TRAEFIK_PASSWORD_HASH=""  
 EMAIL=your_email@example.com  # <-- Ensure this is set for Let's Encrypt
 CLOUDFLARE_API_TOKEN=your_cloudflare_api_token  # <-- Add your Cloudflare API token
+CLOUDFLARE_EMAIL=your_cloudflare_email  # <-- Add your Cloudflare email
+CLOUDFLARE_API_KEY=your_cloudflare_api_key  # <-- Add your Cloudflare API key
 EOF  
 ```  
 
