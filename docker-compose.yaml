@@ -90,7 +90,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - traefik-letsencrypt:/letsencrypt
       - ./acme.json:/etc/traefik/acme.json  # Mounting the acme.json file
-      - ./traefik.yml:/etc/traefik/traefik.yml  # Mounting the traefik.yml file
     networks:
       - traefik-net
     restart: unless-stopped
