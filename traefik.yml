@@ -1,32 +1,8 @@
-api:
-  dashboard: true
-  debug: true
-
-entryPoints:
-  web:
-    address: ":80"
-  websecure:
-    address: ":443"
-    http:
-      tls:
-        certResolver: cloudflare
-        domains:
-          - main: "${DOMAIN}"
-            sans:
-              - "${CODE_SUBDOMAIN}.${DOMAIN}"
-              - "${FIREFLY_SUBDOMAIN}.${DOMAIN}"
-              - "${TRAEFIK_SUBDOMAIN}.${DOMAIN}"
-              - "${VAULTWARDEN_SUBDOMAIN}.${DOMAIN}"
-
-providers:
-  docker:
-    exposedByDefault: false
-
 certificatesResolvers:
   cloudflare:
     acme:
       email: "${EMAIL}"
-      storage: "/etc/traefik/acme.json"
+      storage: "/etc/traefik/acme.json"  # Pointing to the acme.json file
       dnsChallenge:
         provider: cloudflare
         resolvers:
