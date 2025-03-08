@@ -61,24 +61,7 @@ services:
       - "80:80"
       - "443:443"
     command:
-      # Basic Traefik configuration
-      - "--api.insecure=false"
-      - "--api.dashboard=true"
-      - "--api.debug=true"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.web.address=:80"
-      - "--entrypoints.websecure.address=:443"
-
-      # ACME configuration for wildcard certificates
-      - "--certificatesresolvers.cloudflare.acme.dnschallenge=true"  # Using DNS challenge
-      - "--certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare"  # Replace with your DNS provider
-      - "--certificatesresolvers.cloudflare.acme.email=${EMAIL}"  # Replace with your email
-      - "--certificatesresolvers.cloudflare.acme.storage=/letsencrypt/acme.json"
-      - "--entrypoints.websecure.http.tls=true"
-      - "--entrypoints.websecure.http.tls.certresolver=cloudflare"
-      - "--entrypoints.websecure.http.tls.domains[0].main=${DOMAIN}"
-      - "--entrypoints.websecure.http.tls.domains[0].sans=${CODE_SUBDOMAIN}.${DOMAIN},${FIREFLY_SUBDOMAIN}.${DOMAIN},${TRAEFIK_SUBDOMAIN}.${DOMAIN},${VAULTWARDEN_SUBDOMAIN}.${DOMAIN}"
+      - "--configFile=/etc/traefik/traefik.yml"  # Reference the new traefik.yml file
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.rule=Host(`${TRAEFIK_SUBDOMAIN}.${DOMAIN}`)"
@@ -90,6 +73,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - traefik-letsencrypt:/letsencrypt
       - ./acme.json:/etc/traefik/acme.json  # Mounting the acme.json file
+      - ./traefik.yml:/etc/traefik/traefik.yml  # Mounting the traefik.yml file
     networks:
       - traefik-net
     restart: unless-stopped
