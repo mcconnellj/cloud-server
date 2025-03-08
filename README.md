@@ -102,7 +102,7 @@ Set A records in your domain registrar to point to your server’s public IP add
 Note: Replace `xxx.xxx.xxx.xxx` with your actual public IP address.  
 
 ---
-
+ 
 ### Step 3: Install Dependencies  
 
 Run the following commands on your server:  
