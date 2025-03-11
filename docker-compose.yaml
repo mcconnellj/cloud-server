@@ -5,7 +5,7 @@ services:
     env_file:
       - .env
     environment:
-      - DOMAIN=https://${VAULTWARDEN_SUBDOMAIN}.${DOMAIN}
+      - DOMAIN=https://vaultwarden.promotesudbury.ca
     volumes:
       - vw-data:/data
     labels:
