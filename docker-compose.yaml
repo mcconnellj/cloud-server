@@ -5,7 +5,7 @@ services:
     env_file:
       - .env
     environment:
-      - DOMAIN=https://vault.promotesudbury.ca
+      - DOMAIN=https://${VAULT_SUBDOMAIN}.${DOMAIN}
     volumes:
       - vault-data:/vault/data
     labels:
@@ -14,7 +14,7 @@ services:
       - "traefik.http.routers.vault.entrypoints=websecure"
       - "traefik.http.routers.vault.middlewares=auth"
       - "traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_PASSWORD_HASH}"
-      - "traefik.http.services.vault.loadbalancer.server.port=8200"  # <-- Explicit port for service discovery
+      - "traefik.http.services.vault.loadbalancer.server.port=8200"
     networks:
       - traefik-net
       - internal-net
