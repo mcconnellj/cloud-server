@@ -19,6 +19,8 @@ services:
       - traefik-net
       - internal-net
     restart: unless-stopped
+    expose:
+      - "8200"
 
   firefly-iii:
     image: fireflyiii/core:latest
