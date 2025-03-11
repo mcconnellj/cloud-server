@@ -1,20 +1,20 @@
 services:
-  vaultwarden:
-    image: vaultwarden/server:latest
-    container_name: vaultwarden
+  vault:
+    image: vault:latest
+    container_name: vault
     env_file:
       - .env
     environment:
-      - DOMAIN=https://vaultwarden.promotesudbury.ca
+      - DOMAIN=https://vault.promotesudbury.ca
     volumes:
-      - vw-data:/data
+      - vault-data:/vault/data
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.vaultwarden.rule=Host(`${VAULTWARDEN_SUBDOMAIN}.${DOMAIN}`)"
-      - "traefik.http.routers.vaultwarden.entrypoints=websecure"
-      - "traefik.http.routers.vaultwarden.middlewares=auth"
+      - "traefik.http.routers.vault.rule=Host(`${VAULT_SUBDOMAIN}.${DOMAIN}`)"
+      - "traefik.http.routers.vault.entrypoints=websecure"
+      - "traefik.http.routers.vault.middlewares=auth"
       - "traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_PASSWORD_HASH}"
-      - "traefik.http.services.vaultwarden.loadbalancer.server.port=80"  # <-- Explicit port for service discovery
+      - "traefik.http.services.vault.loadbalancer.server.port=8200"  # <-- Explicit port for service discovery
     networks:
       - traefik-net
       - internal-net
@@ -78,7 +78,7 @@ services:
       - "--entrypoints.websecure.http.tls=true"
       - "--entrypoints.websecure.http.tls.certresolver=cloudflare"
       - "--entrypoints.websecure.http.tls.domains[0].main=${DOMAIN}"
-      - "--entrypoints.websecure.http.tls.domains[0].sans=${CODE_SUBDOMAIN}.${DOMAIN},${FIREFLY_SUBDOMAIN}.${DOMAIN},${TRAEFIK_SUBDOMAIN}.${DOMAIN},${VAULTWARDEN_SUBDOMAIN}.${DOMAIN}"
+      - "--entrypoints.websecure.http.tls.domains[0].sans=${CODE_SUBDOMAIN}.${DOMAIN},${FIREFLY_SUBDOMAIN}.${DOMAIN},${TRAEFIK_SUBDOMAIN}.${DOMAIN},${VAULT_SUBDOMAIN}.${DOMAIN}"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.rule=Host(`${TRAEFIK_SUBDOMAIN}.${DOMAIN}`)"
@@ -95,7 +95,7 @@ services:
     restart: unless-stopped
 
 volumes:
-  vw-data:
+  vault-data:
   firefly_iii_upload:
   firefly_iii_db:
   traefik-letsencrypt:
