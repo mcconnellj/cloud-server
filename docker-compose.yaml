@@ -20,7 +20,7 @@ services:
       - internal-net
     restart: unless-stopped
     expose:
-      - "8200"
+      ##- "8200"
 
   firefly-iii:
     image: fireflyiii/core:latest
@@ -83,7 +83,7 @@ services:
       - "--entrypoints.websecure.http.tls.domains[0].sans=${CODE_SUBDOMAIN}.${DOMAIN},${FIREFLY_SUBDOMAIN}.${DOMAIN},${TRAEFIK_SUBDOMAIN}.${DOMAIN},${VAULT_SUBDOMAIN}.${DOMAIN}"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.traefik.rule=Host(`${TRAEFIK_SUBDOMAIN}.${DOMAIN}`)"
+      - "traefik.http.routers.traefik.rule=Host(traefik.promotesudbury.ca)"
       - "traefik.http.routers.traefik.entrypoints=websecure"
       - "traefik.http.routers.traefik.middlewares=auth"
       - "traefik.http.routers.traefik.service=api@internal"
