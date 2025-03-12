@@ -7,7 +7,7 @@
 
 ---
 
-## 📌 Table of Contents  
+## 📌 Table of Contents   
 
 - [Free Cloud Development Server](#free-cloud-development-server)
   - [📌 Table of Contents](#-table-of-contents)
