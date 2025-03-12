@@ -10,8 +10,13 @@ services:
       - vault-data:/vault/data
     labels:
       - "traefik.enable=true"
+      # HTTP Router
+      - "traefik.http.routers.vault-http.rule=Host(`${VAULT_SUBDOMAIN}.${DOMAIN}`)"
+      - "traefik.http.routers.vault-http.entrypoints=web"
+      - "traefik.http.routers.vault-http.middlewares=redirect-to-https"
+      # HTTPS Router
       - "traefik.http.routers.vault.rule=Host(`${VAULT_SUBDOMAIN}.${DOMAIN}`)"
-      - "traefik.http.routers.vault.entrypoints=websecure"
+#      - "traefik.http.routers.vault.entrypoints=websecure"
       - "traefik.http.routers.vault.middlewares=auth"
       - "traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_PASSWORD_HASH}"
       - "traefik.http.services.vault.loadbalancer.server.port=8200"
@@ -35,6 +40,11 @@ services:
       - internal-net
     labels:
       - "traefik.enable=true"
+      # HTTP Router
+      - "traefik.http.routers.firefly-iii-http.rule=Host(`${FIREFLY_SUBDOMAIN}.${DOMAIN}`)"
+      - "traefik.http.routers.firefly-iii-http.entrypoints=web"
+      - "traefik.http.routers.firefly-iii-http.middlewares=redirect-to-https"
+      # HTTPS Router
       - "traefik.http.routers.firefly-iii.rule=Host(`${FIREFLY_SUBDOMAIN}.${DOMAIN}`)"
       - "traefik.http.routers.firefly-iii.entrypoints=websecure"
       - "traefik.http.routers.firefly-iii.middlewares=auth"
@@ -84,6 +94,11 @@ services:
       - "--entrypoints.websecure.http.tls.domains[0].sans=${CODE_SUBDOMAIN}.${DOMAIN},${FIREFLY_SUBDOMAIN}.${DOMAIN},${TRAEFIK_SUBDOMAIN}.${DOMAIN},${VAULT_SUBDOMAIN}.${DOMAIN}"
     labels:
       - "traefik.enable=true"
+      # HTTP Router
+      - "traefik.http.routers.traefik-http.rule=Host(`${TRAEFIK_SUBDOMAIN}.${DOMAIN}`)"
+      - "traefik.http.routers.traefik-http.entrypoints=web"
+      - "traefik.http.routers.traefik-http.middlewares=redirect-to-https"
+      # HTTPS Router
       - "traefik.http.routers.traefik.rule=Host(`${TRAEFIK_SUBDOMAIN}.${DOMAIN}`)"
       - "traefik.http.routers.traefik.entrypoints=websecure"
       - "traefik.http.routers.traefik.middlewares=auth"
