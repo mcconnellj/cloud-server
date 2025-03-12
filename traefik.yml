@@ -1,10 +1,36 @@
+# Traefik Static Configuration
+entryPoints:
+  web:
+    address: ":80"  # HTTP entry point
+  websecure:
+    address: ":443" # HTTPS entry point
+
+http:
+  middlewares:
+    redirect-to-https:
+      redirectScheme:
+        scheme: https
+        permanent: true
+
 certificatesResolvers:
   cloudflare:
     acme:
-      email: "${EMAIL}"
-      storage: "/etc/traefik/acme.json"  # Pointing to the acme.json file
+      email: "${EMAIL}"  # Make sure to replace with your actual email or environment variable
+      storage: "/etc/traefik/acme.json"  # ACME storage path
       dnsChallenge:
-        provider: cloudflare
+        provider: cloudflare  # Cloudflare DNS challenge for ACME
         resolvers:
           - "1.1.1.1:53"
           - "8.8.8.8:53"
+
+providers:
+  docker:
+    exposedByDefault: false  # Only expose containers with explicit labels
+
+# Enable Traefik Dashboard (Optional, if needed)
+api:
+  insecure: true
+  dashboard: true
+
+# Dynamic Configuration for Docker Provider
+# Ensure the Docker provider is enabled and used
